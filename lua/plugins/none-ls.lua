@@ -17,6 +17,7 @@ return {
 				"stylua",
 				"eslint_d",
 				"shfmt",
+				"pint",
 			},
 			automatic_installation = true,
 		})
@@ -25,6 +26,7 @@ return {
 			diagnostics.checkmake,
 			formatting.prettier,
 			formatting.stylua,
+			formatting.pint,
 			formatting.shfmt.with({ args = { "-i", "4" } }),
 			formatting.terraform_fmt,
 			require("none-ls.formatting.ruff").with({ extra_args = { "--extend-select", "I" } }),
@@ -33,9 +35,7 @@ return {
 
 		local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 		null_ls.setup({
-			-- debug = true, -- Enable debug mode. Inspect logs with :NullLsLog.
 			sources = sources,
-			-- you can reuse a shared lspconfig on_attach callback here
 			on_attach = function(client, bufnr)
 				if client.supports_method("textDocument/formatting") then
 					vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
