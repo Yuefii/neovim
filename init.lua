@@ -29,6 +29,7 @@ require("lazy").setup({
 	require("plugins.treesitter"),
 	require("plugins.telescope"),
 	require("plugins.lsp"),
+	require("plugins.hl-chunk"),
 	require("plugins.autocompletion"),
 	require("plugins.none-ls"),
 })
