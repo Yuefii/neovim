@@ -32,3 +32,4 @@ require("lazy").setup({
 	require("plugins.autocompletion"),
 	require("plugins.none-ls"),
 })
+require("plugins.terminal")

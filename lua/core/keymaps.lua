@@ -27,7 +27,7 @@ vim.keymap.set("n", "<C-\\>", "<cmd>vsplit<CR>", opts)
 vim.keymap.set("n", "<leader>sh", "<cmd>split<CR>", opts)
 vim.keymap.set("n", "<leader>sv", "<cmd>vsplit<CR>", opts)
 
--- NOTE: Move between splits like in VS Code
+-- NOTE: move between splits seperti di VS Code
 vim.keymap.set("n", "<C-h>", "<C-w>h", opts)
 vim.keymap.set("n", "<C-l>", "<C-w>l", opts)
 vim.keymap.set("n", "<C-j>", "<C-w>j", opts)
@@ -50,3 +50,9 @@ vim.keymap.set("n", "<C-z>", "u", opts)
 
 -- NOTE: Redo (Ctrl+Y) di mode normal
 vim.keymap.set("n", "<C-y>", "<C-r>", opts)
+
+-- NOTE: close insert di terminal
+vim.keymap.set("t", "<esc><esc>", "<C-\\><C-n>", opts)
+
+-- NOTE: membuat floating terminal
+vim.keymap.set("n", "<leader>t", ":Floaterminal<CR>", opts)
