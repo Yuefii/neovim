@@ -1,9 +1,3 @@
-# 🛠️ Neovim Config From Scratch
-
-Ini adalah konfigurasi yang saya pakai setiap hari dengan tujuan agar lebih ringan, intuitif, dan siap digunakan untuk ngoding. Konfigurasi ini dibuat menggunakan **Lua**, dan memanfaatkan plugin-plugin modern serta keybindings yang mudah diingat.
-
----
-
 ## 📋 Daftar Keybindings
 
 | Mode     | Kombinasi Tombol | Fungsi                                        |
@@ -29,5 +23,3 @@ Ini adalah konfigurasi yang saya pakai setiap hari dengan tujuan agar lebih ring
 | Normal   | `Ctrl + Y`       | Redo perubahan                                |
 | Terminal | `Spasi + Esc`    | Keluar dari terminal mode ke normal mode      |
 | Normal   | `Spasi + T`      | Membuka floating terminal (Floaterminal)      |
-
----
