@@ -21,7 +21,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	require("plugins.alpha"),
 	require("plugins.neo-tree"),
-	require("plugins.colorscheme"),
+	require("plugins.themes.solarized-osaka"),
 	require("plugins.bufferline"),
 	require("plugins.misc"),
 	require("plugins.lualine"),
