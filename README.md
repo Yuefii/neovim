@@ -1,3 +1,11 @@
+| Gambar 1              | Gambar 2              |
+| --------------------- | --------------------- |
+| ![](screenshot/1.png) | ![](screenshot/2.png) |
+
+| Gambar 3              | Gambar 4              |
+| --------------------- | --------------------- |
+| ![](screenshot/3.png) | ![](screenshot/4.png) |
+
 ## 📋 Daftar Keybindings
 
 | Mode     | Kombinasi Tombol | Fungsi                                        |
