@@ -97,3 +97,9 @@ vim.keymap.set("t", "<leader><esc>", "<C-\\><C-n>", opts)
 -- Membuat floating terminal
 -- (Space+t)
 vim.keymap.set("n", "<leader>t", ":Floaterminal<CR>", opts)
+
+-- NOTE:
+-- select kata dibawah cursor dan select semua sub-kata
+-- (Ctrl+D)
+vim.api.nvim_set_keymap("n", "<C-d>", "<Plug>(VM-Find-Under)", {})
+vim.api.nvim_set_keymap("v", "<C-d>", "<Plug>(VM-Find-Subword-Under)", {})

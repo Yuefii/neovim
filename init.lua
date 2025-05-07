@@ -33,5 +33,6 @@ require("lazy").setup({
 	require("plugins.hl-chunk"),
 	require("plugins.autocompletion"),
 	require("plugins.none-ls"),
+	require("plugins.multi-cursor"),
 })
 require("plugins.terminal")
