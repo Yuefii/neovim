@@ -1,22 +1,20 @@
-return { -- Autocompletion
+return {
 	"hrsh7th/nvim-cmp",
 	dependencies = {
-		-- Snippet Engine & its associated nvim-cmp source
+		{
+			"supermaven-inc/supermaven-nvim",
+			opts = {},
+		},
 		{
 			"L3MON4D3/LuaSnip",
 			build = (function()
-				-- Build Step is needed for regex support in snippets.
-				-- This step is not supported in many windows environments.
-				-- Remove the below condition to re-enable on windows.
+				-- NOTE: Build ini hanya dijalankan pada Windows dan make tersedia
 				if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
 					return
 				end
-				return "make install_jsregexp"
+				return "make install_jsregexp" -- Menambahkan dukungan regex untuk snippet
 			end)(),
 			dependencies = {
-				-- `friendly-snippets` contains a variety of premade snippets.
-				--    See the README about individual language/framework/plugin snippets:
-				--    https://github.com/rafamadriz/friendly-snippets
 				{
 					"rafamadriz/friendly-snippets",
 					config = function()
@@ -25,17 +23,12 @@ return { -- Autocompletion
 				},
 			},
 		},
-		"saadparwaiz1/cmp_luasnip",
-
-		-- Adds other completion capabilities.
-		--  nvim-cmp does not ship with all sources by default. They are split
-		--  into multiple repos for maintenance purposes.
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-buffer",
-		"hrsh7th/cmp-path",
+		"saadparwaiz1/cmp_luasnip", -- Intergrasi snippet dengan cmp
+		"hrsh7th/cmp-nvim-lsp", -- Sumber LSP untuk cmp
+		"hrsh7th/cmp-buffer", -- Sumber buffer untuk cmp
+		"hrsh7th/cmp-path", -- Sumber path/file untuk system
 	},
 	config = function()
-		-- See `:help cmp`
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 		luasnip.config.setup({})
@@ -74,71 +67,45 @@ return { -- Autocompletion
 				end,
 			},
 			completion = { completeopt = "menu,menuone,noinsert" },
-
-			-- For an understanding of why these mappings were
-			-- chosen, you will need to read `:help ins-completion`
-			--
-			-- No, but seriously. Please read `:help ins-completion`, it is really good!
 			mapping = cmp.mapping.preset.insert({
-				-- Select the [n]ext item
+				-- (Ctrl-N) untuk navigasi selanjutnya
 				["<C-n>"] = cmp.mapping.select_next_item(),
-				-- Select the [p]revious item
+				-- (Ctrl-P) untuk navigasi sebelumnya
 				["<C-p>"] = cmp.mapping.select_prev_item(),
-
-				-- Scroll the documentation window [b]ack / [f]orward
+				-- (Ctrl-B) untuk scroll dokumentasi ke atas
 				["<C-b>"] = cmp.mapping.scroll_docs(-4),
+				-- (Ctrl-F) untuk scroll dokumentasi ke bawah
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
-
-				-- Accept ([y]es) the completion.
-				--  This will auto-import if your LSP supports it.
-				--  This will expand snippets if the LSP sent a snippet.
+				-- (Enter) untuk konfirmasi pilihan
 				["<CR>"] = cmp.mapping.confirm({ select = true }),
-
-				-- If you prefer more traditional completion keymaps,
-				-- you can uncomment the following lines
-				--['<CR>'] = cmp.mapping.confirm { select = true },
-				--['<Tab>'] = cmp.mapping.select_next_item(),
-				--['<S-Tab>'] = cmp.mapping.select_prev_item(),
-
-				-- Manually trigger a completion from nvim-cmp.
-				--  Generally you don't need this, because nvim-cmp will display
-				--  completions whenever it has completion options available.
+				-- (Ctrl-Space) untuk menampilkan daftar suggestion
 				["<C-Space>"] = cmp.mapping.complete({}),
 
-				-- Think of <c-l> as moving to the right of your snippet expansion.
-				--  So if you have a snippet that's like:
-				--  function $name($args)
-				--    $body
-				--  end
-				--
-				-- <c-l> will move you to the right of each of the expansion locations.
-				-- <c-h> is similar, except moving you backwards.
 				["<C-l>"] = cmp.mapping(function()
 					if luasnip.expand_or_locally_jumpable() then
-						luasnip.expand_or_jump()
-					end
-				end, { "i", "s" }),
-				["<C-h>"] = cmp.mapping(function()
-					if luasnip.locally_jumpable(-1) then
-						luasnip.jump(-1)
+						luasnip.expand_or_jump() -- Lompat ke bagian berikutnya dalam snippet
 					end
 				end, { "i", "s" }),
 
-				-- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
-				--    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
-				-- Select next/previous item with Tab / Shift + Tab
+				["<C-h>"] = cmp.mapping(function()
+					if luasnip.locally_jumpable(-1) then
+						luasnip.jump(-1) -- Lompat ke bagian sebelumnya dalam snippet
+					end
+				end, { "i", "s" }),
+
 				["<Tab>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
-						cmp.select_next_item()
+						cmp.select_next_item() -- Pilih item berikutnya
 					elseif luasnip.expand_or_locally_jumpable() then
 						luasnip.expand_or_jump()
 					else
 						fallback()
 					end
 				end, { "i", "s" }),
+
 				["<S-Tab>"] = cmp.mapping(function(fallback)
 					if cmp.visible() then
-						cmp.select_prev_item()
+						cmp.select_prev_item() -- Pilih item sebelumnya
 					elseif luasnip.locally_jumpable(-1) then
 						luasnip.jump(-1)
 					else
@@ -149,7 +116,6 @@ return { -- Autocompletion
 			sources = {
 				{
 					name = "lazydev",
-					-- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
 					group_index = 0,
 				},
 				{ name = "nvim_lsp" },
