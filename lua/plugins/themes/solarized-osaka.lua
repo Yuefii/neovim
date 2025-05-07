@@ -8,26 +8,30 @@ return {
 				transparant = true,
 			})
 			vim.cmd("colorscheme solarized-osaka")
-			vim.cmd([[
-                highlight NormalFloat guibg=NONE ctermbg=NONE
-                highlight FloatBorder guibg=NONE ctermbg=NONE
-            ]])
-			vim.cmd([[
-                highlight TelescopeNormal guibg=NONE
-                highlight TelescopeBorder guibg=NONE
-                highlight TelescopePromptNormal guibg=NONE
-                highlight TelescopePromptBorder guibg=NONE
-                highlight TelescopeResultsNormal guibg=NONE
-                highlight TelescopeResultsBorder guibg=NONE
-                highlight TelescopePreviewNormal guibg=NONE
-                highlight TelescopePreviewBorder guibg=NONE
-            ]])
-			vim.cmd([[
-                highlight NeoTreeNormalNC guibg=NONE ctermbg=NONE
-                highlight NeoTreeNormal guibg=NONE ctermbg=NONE
-                highlight NeoTreeEndOfBuffer guibg=NONE ctermbg=NONE
-                highlight NeoTreeWinSeparator guibg=NONE ctermbg=NONE
-            ]])
+
+			local function set_highlight(groups)
+				for _, group in ipairs(groups) do
+					vim.api.nvim_set_hl(0, group[1], group[2])
+				end
+			end
+
+			set_highlight({
+				{ "TelescopeNormal", { bg = "NONE" } },
+				{ "TelescopeBorder", { bg = "NONE" } },
+				{ "TelescopePromptNormal", { bg = "NONE" } },
+				{ "TelescopePromptBorder", { bg = "NONE" } },
+				{ "TelescopeResultsNormal", { bg = "NONE" } },
+				{ "TelescopeResultsBorder", { bg = "NONE" } },
+				{ "TelescopePreviewNormal", { bg = "NONE" } },
+				{ "TelescopePreviewBorder", { bg = "NONE" } },
+			})
+
+			set_highlight({
+				{ "NeoTreeNormalNC", { bg = "NONE", ctermbg = "NONE" } },
+				{ "NeoTreeNormal", { bg = "NONE", ctermbg = "NONE" } },
+				{ "NeoTreeEndOfBuffer", { bg = "NONE", ctermbg = "NONE" } },
+				{ "NeoTreeWinSeparator", { bg = "NONE", ctermbg = "NONE" } },
+			})
 		end,
 	},
 }
