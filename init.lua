@@ -35,4 +35,5 @@ require("lazy").setup({
 	require("plugins.cmp"),
 	require("plugins.none-ls"),
 	require("plugins.multi-cursor"),
+	require("plugins.wakatime"),
 })
