@@ -23,7 +23,7 @@ require("lazy").setup({
 	require("plugins.alpha"),
 	require("plugins.toggleterm"),
 	require("plugins.neo-tree"),
-	require("plugins.themes.solarized-osaka"),
+	require("plugins.themes.gruvbox"),
 	require("plugins.bufferline"),
 	require("plugins.misc"),
 	require("plugins.lualine"),
