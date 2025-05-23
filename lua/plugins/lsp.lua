@@ -88,6 +88,14 @@ return {
 			jsonls = {},
 			yamlls = {},
 			emmet_ls = {},
+			gopls = {
+				settings = {
+					gopls = {
+						gofumpt = true,
+						staticcheck = true,
+					},
+				},
+			},
 
 			lua_ls = {
 				settings = {
@@ -117,6 +125,9 @@ return {
 		local ensure_installed = vim.tbl_keys(servers or {})
 		vim.list_extend(ensure_installed, {
 			"stylua",
+			"gopls",
+			"gofumpt",
+			"goimports",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
