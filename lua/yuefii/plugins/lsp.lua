@@ -6,19 +6,14 @@ return {
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-nvim-lsp",
-			{
-				"L3MON4D3/LuaSnip",
-				version = "v2.*",
-				build = "make install_jsregexp",
-			},
-			"saadparwaiz1/cmp_luasnip",
-			"rafamadriz/friendly-snippets",
+		"saadparwaiz1/cmp_luasnip",
+		"rafamadriz/friendly-snippets",
 		},
 		config = function()
 			local cmp = require("cmp")
 			local luasnip = require("luasnip")
 
-			require("luasnip.loaders.from_vscode").lazy_load()
+
 
 			cmp.setup({
 				snippet = {
@@ -81,17 +76,86 @@ return {
 				html = {},
 				cssls = {},
 				tailwindcss = {},
-				ts_ls = {},
-				clangd = {},
-				rust_analyzer = {},
+				ts_ls = {
+					settings = {
+						typescript = {
+							inlayHints = {
+								includeInlayParameterNameHints = "literal",
+								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+								includeInlayFunctionParameterTypeHints = true,
+								includeInlayVariableTypeHints = false,
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayEnumMemberValueHints = true,
+							},
+						},
+						javascript = {
+							inlayHints = {
+								includeInlayParameterNameHints = "all",
+								includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+								includeInlayFunctionParameterTypeHints = true,
+								includeInlayVariableTypeHints = true,
+								includeInlayPropertyDeclarationTypeHints = true,
+								includeInlayFunctionLikeReturnTypeHints = true,
+								includeInlayEnumMemberValueHints = true,
+							},
+						},
+					},
+				},
+				phpactor = {
+					init_options = {
+						["language_server_phpstan.enabled"] = false,
+						["language_server_psalm.enabled"] = false,
+					},
+				},
+				intelephense = {
+					settings = {
+						intelephense = {
+							diagnostics = {
+								enable = true,
+								undefinedTypes = true,
+								undefinedFunctions = true,
+								undefinedConstants = true,
+								undefinedClassConstants = true,
+								undefinedMethods = false, -- False to avoid Laravel magic method errors
+								undefinedProperties = false, -- False to avoid magic properties
+								undefinedVariables = true,
+							},
+						},
+					},
+					init_options = {
+						storagePath = os.getenv("HOME") .. "/.local/share/nvim/intelephense",
+					},
+				},
 			}
 
 			require("mason").setup()
 
 			local ensure_installed = vim.tbl_keys(servers)
+			vim.list_extend(ensure_installed, {
+				"phpactor",
+				"intelephense",
+				"typescript-language-server",
+				"eslint-lsp",
+				"php-cs-fixer",
+				"pint",
+				"eslint_d",
+				"prettier",
+				"stylua",
+			})
 
 			require("mason-tool-installer").setup({
 				ensure_installed = ensure_installed,
+			})
+
+			require("mason-lspconfig").setup({
+				handlers = {
+					function(server_name)
+						local server = servers[server_name] or {}
+						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+						require("lspconfig")[server_name].setup(server)
+					end,
+				},
 			})
 		end,
 	},

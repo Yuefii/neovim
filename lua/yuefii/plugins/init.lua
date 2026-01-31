@@ -53,4 +53,8 @@ return {
 			require("Comment").setup()
 		end,
 	},
+	require("yuefii.plugins.null-ls"),
+	require("yuefii.plugins.blade"),
+	require("yuefii.plugins.snippets"),
+	require("yuefii.plugins.lualine"),
 }

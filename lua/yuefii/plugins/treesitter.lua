@@ -4,13 +4,17 @@ return {
 	opts = {
 		ensure_installed = {
 			"lua",
-			"c",
-			"cpp",
 			"javascript",
 			"typescript",
 			"tsx",
 			"jsx",
-			"rust",
+			"php",
+			"phpdoc",
+			"html",
+			"css",
+			"scss",
+			"json",
+			"blade",
 		},
 		auto_install = true,
 		highlight = {
